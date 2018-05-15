@@ -1,0 +1,65 @@
+// Mixins create Triangle
+@mixin triangle($direction, $sizeH, $sizeV, $color) {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    -moz-transform: scale(0.9999);
+  
+    @if $direction == top {
+      border-width: 0 $sizeV $sizeH $sizeV;
+      border-color: transparent transparent $color transparent;
+    }
+    @if $direction == bottom {
+      border-width: $sizeV $sizeH 0 $sizeV;
+      border-color: $color transparent transparent transparent;
+    }
+    @if $direction == left {
+      border-width: $sizeV $sizeH $sizeV 0;
+      border-color: transparent $color transparent transparent;
+    }
+    @if $direction == right {
+      border-width: $sizeV 0 $sizeV $sizeH;
+      border-color: transparent transparent transparent $color;
+    }
+  }
+  
+  
+  @mixin rotate($degrees) {
+    -moz-transform: rotate($degrees);
+    -o-transform: rotate($degrees);
+    -webkit-transform: rotate($degrees);
+    filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+    zoom: 1;
+  }
+  // Browser Prefixes
+  @mixin transform($transforms) {
+    -webkit-transform: $transforms;
+    -moz-transform: $transforms;
+    -ms-transform: $transforms;
+    transform: $transforms;
+  }
+  
+  @mixin transform-multi($x, $y) {
+    -webkit-transform: $x $y;
+    -moz-transform: $x $y;
+    -ms-transform: $x $y;
+    transform: $x $y;
+  }
+  
+  // Skew
+  @mixin skew($x, $y) {
+    @include transform(skew($x, $y));
+  }
+  
+  @mixin translate3d($x, $y, $z) {
+    transform: translate3d($x, $y, $z);
+  }
+  
+  @mixin scale($x, $y) {
+    @include transform(scale($x, $y));
+  }
+  
+  
